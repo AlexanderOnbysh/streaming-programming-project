@@ -30,8 +30,8 @@ object KafkaProducer extends App with LazyLogging {
 
   def tweetToStream: PartialFunction[StreamingMessage, Unit] = {
     case tweet: Tweet =>
-      producer.send(new ProducerRecord(topic, "key", s"Message ${LocalDateTime.now()}"))
-      logger.debug(tweet.text)
+      producer.send(new ProducerRecord(topic, tweet.created_at.toString, tweet.text))
+      logger.debug(s"${tweet.created_at}: ${tweet.text}")
   }
 
   client.filterStatuses(
