@@ -1,7 +1,3 @@
-/**
- * Created by Alexander Onbysh 06.12.2019
- */
-
 import java.time.LocalDateTime
 import java.util.Properties
 
