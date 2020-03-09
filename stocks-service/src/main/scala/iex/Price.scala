@@ -7,6 +7,4 @@ case class Price(symbol: String, companyName: String, latestPrice: Double, previ
 object Price {
 
   implicit val format: Format[Price] = Json.format[Price]
-  def toJson = ""
-
 }
