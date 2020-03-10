@@ -17,7 +17,7 @@ object Enricher extends App {
 
     val builder = new StreamsBuilder
 
-    implicit val stringKey: Serde[String] = CirceSerdes.serde[String]
+    implicit val keyValue: Serde[String] = Serdes.String
     implicit val tweetValue: Serde[Tweet] = CirceSerdes.serde[Tweet]
     val tweet = builder.table[String, Tweet](configuration.tweetsTopic)(Consumed.`with`[String, Tweet])
 
@@ -39,7 +39,7 @@ object Enricher extends App {
   val props = new Properties()
   props.put(StreamsConfig.APPLICATION_ID_CONFIG, "test_app")
   props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.bootstrap)
-  props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
+  props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
   props.put("max.poll.records", "100")
 
   val streams = new KafkaStreams(joinStreams, props)
