@@ -32,20 +32,21 @@ object TwitterProducer extends App with LazyLogging {
 
   def tweetToStream: PartialFunction[StreamingMessage, Unit] = {
     case tweet: Tweet =>
-      val record = TweetRecord("MSFT", tweet.text, tweet.favorite_count, tweet.favorited)
+
+      val symbol = configuration.symbols.find(x => tweet.text.toLowerCase contains x.toLowerCase).getOrElse("None")
+      val record = TweetRecord(symbol, tweet.text, tweet.favorite_count, tweet.favorited)
       logger.debug(record.toString)
       producer.send(
         new ProducerRecord(
           topic,
-          "MSFT",
+          symbol,
           record.asJson.noSpaces
         )
       )
   }
 
   client.filterStatuses(
-    //    all tweets with Tesla
-    tracks = List("Microsoft"),
-    //    San Francisco
+    tracks = configuration.symbols,
     languages = List(English)
-  )(tweetToStream)}
+  )(tweetToStream)
+}
