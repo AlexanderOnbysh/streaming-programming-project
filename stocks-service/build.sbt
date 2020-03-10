@@ -14,6 +14,7 @@ libraryDependencies += "com.typesafe.play" %% "play-ws-standalone-json" % "2.1.2
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs@_*) => MergeStrategy.discard
+  case PathList("reference.conf") => MergeStrategy.concat
   case x => MergeStrategy.first
 }
 assemblyOutputPath in assembly := file("service.jar")
