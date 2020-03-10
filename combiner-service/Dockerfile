@@ -15,6 +15,9 @@ COPY . /project
 RUN sbt assembly
 
 FROM openjdk:alpine
+RUN apk add --update libc6-compat \
+  && rm -rf /var/cache/apk/*
+
 COPY --from=0 /project/service.jar /usr/src/app/
 WORKDIR /usr/src/app
 CMD java -XX:+PrintFlagsFinal $JAVA_OPTIONS -jar service.jar
