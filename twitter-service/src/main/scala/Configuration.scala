@@ -4,7 +4,7 @@ class Configuration {
   val env: util.Map[String, String] = System.getenv()
 
   val bootstrap: String = env.getOrDefault("BOOTSTRAP_URL", "localhost:9092")
-  val outputTopic: String = env.getOrDefault("OUTPUT_TOPIC", "test")
+  val outputTopic: String = env.getOrDefault("OUTPUT_TOPIC", "tweets")
   //    keys
   val ConsumerKey: String = env.get("CONSUMER_KEY")
   val ConsumerSecret: String = env.get("CONSUMER_SECRET")
