@@ -1,5 +1,3 @@
-import sbt._
-
 name := "combiner-service"
 version := "0.1"
 scalaVersion := "2.12.1"
@@ -26,4 +24,11 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs@_*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}
+
+assemblyOutputPath in assembly := file("service.jar")
 
