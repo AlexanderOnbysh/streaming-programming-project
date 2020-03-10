@@ -22,8 +22,8 @@ kafka-list-topics:
 	kafkacat -b 127.0.0.1:9092 -L
 
 kafka-create-topics:
-	kafkacat -C -t dataset-1 -b 127.0.0.1:9092
-	kafkacat -C -t dataset-2 -b 127.0.0.1:9092
-	kafkacat -C -t resulting -b 127.0.0.1:9092
+	kafkacat -C -t tweets -b 127.0.0.1:9092
+	kafkacat -C -t stocks -2 -b 127.0.0.1:9092
+	kafkacat -C -t combined -b 127.0.0.1:9092
 	kafkacat -C -t ml-out -b 127.0.0.1:9092
 
