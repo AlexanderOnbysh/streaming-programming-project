@@ -17,6 +17,12 @@ build:
 	@echo "📦$(BOLD)Build enricher service$(RESET)"
 	docker build -t combiner-service combiner-service/
 
+services-start:
+	docker-compose -f docker-compose-services.yaml up
+
+services-stop:
+	docker-compose -f docker-compose-services.yaml down
+
 install-kaf:
 	curl https://raw.githubusercontent.com/birdayz/kaf/master/godownloader.sh | BINDIR=. bash && export PATH=$PATH:./
 

@@ -1,0 +1,33 @@
+version: '2.1'
+
+services:
+  twitter-service:
+    image: alexanderonbysh/twitter-service:latest
+    hostname: twitter-service
+    network_mode: host
+    environment:
+      - BOOTSTRAP_URL=localhost:9092
+      - OUTPUT_TOPIC=tweets
+    env_file:
+      - twitter-credentials.env
+
+  stocks-service:
+    image: alexanderonbysh/stocks-service:latest
+    hostname: stocks-service
+    network_mode: host
+    environment:
+      - BOOTSTRAP_URL=localhost:9092
+      - OUTPUT_TOPIC=stocks
+    env_file:
+      - stocks-credentials.env
+
+  combiner-service:
+    image: alexanderonbysh/enricher-service:latest
+    hostname: enricher-service
+    network_mode: host
+    environment:
+      - BOOTSTRAP_URL=localhost:9092
+      - STOCKS_TOPIC=stocks
+      - TWEETS_TOPIC=tweets
+      - OUTPUT_TOPIC=combined
+
